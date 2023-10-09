@@ -69,21 +69,37 @@ public class MovieController {
 		return res;
 	}
 
-	@ModelAttribute
-	public Movie newMovie(@PathVariable(value = "id", required = false) Integer id) {
-		if (id != null) {
-			logger.info("find movie " + id);
-			var m = dao.findById(id);
-			return m.get();
-		}
+	@RequestMapping(value = "/movie/newMovie")
+	public ModelAndView  newMovie() {
+//		if (id != null) {
+//			logger.info("find movie " + id);
+//			var m = dao.findById(id);
+//			return m.get();
+//		}
 		Movie m = new Movie();
 		m.setId(0);
 		m.setName("");
 		m.setYear(1900);
 		m.setDescription("");
 		logger.info("new movie = " + m);
-		return m;
+		var res = new ModelAndView("new-movie");
+		res.addObject("movie",m);
+		return res;
 	}
+
+	@PostMapping("/movie/{id}")
+	public String createOrUpdateMovie(@PathVariable Integer id, @ModelAttribute Movie movie) {
+		// If the ID from the path variable and the movie object don't match, there might be an error.
+		if (!id.equals(movie.getId())) {
+			// Handle this case, maybe return an error or throw an exception.
+			throw new IllegalArgumentException("Path ID and movie ID do not match");
+		}
+
+		dao.save(movie);
+
+		return "redirect:/movies"; // Redirect to the list of movies or wherever you want
+	}
+
 
 	/**
 	 * Montrer un film (GET)

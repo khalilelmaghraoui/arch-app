@@ -49,7 +49,7 @@ public class SpringSecuritySimple extends WebSecurityConfigurerAdapter {
 				.antMatchers(allMethods, //
 						"/", "/webjars/**", "/login", //
 						"/app", "/app.js", //
-						"/api/**", "/apibis/**")//
+						"/api/**", "/apibis/**","/movie/**")//
 				.permitAll()//
 				// -- Les autres API nécessitent une authentification
 				.anyRequest().authenticated()

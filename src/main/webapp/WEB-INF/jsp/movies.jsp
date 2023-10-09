@@ -24,7 +24,7 @@
 		</c:forEach>
 	</table>
 	<a href="/movies2000">Search for movies before 2000</a>
-	<a href="/newMovie">Create New Movie</a>
+	<a href="/movie/newMovie">Create New Movie</a>
 </div>
 
 <%@ include file="/WEB-INF/jsp/footer.jsp"%>
